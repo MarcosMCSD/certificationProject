@@ -12,7 +12,7 @@ namespace _02_WebService.Controllers
         public IHttpActionResult Get(LoginRequest loginRequest)
         {
             var token = AppUser.Authenticate(loginRequest);
-            return Ok(token);
+            return Ok(token.RawData);
         }
     }
 }

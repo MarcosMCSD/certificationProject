@@ -31,9 +31,6 @@ namespace _02_WebService.Authentication
             var bytes = GetBytes(_jwtSigningKey);
             var securityKey = new SymmetricSecurityKey(bytes);
 
-            var now = DateTime.UtcNow;
-
-
             var claimsList = new List<Claim>();
             claimsList.Add(new Claim(AppUserClaims.UserAccountId, dbUserAccount.Id.ToString()));
             claimsList.Add(new Claim(AppUserClaims.Username, dbUserAccount.Username.ToString()));
@@ -41,26 +38,20 @@ namespace _02_WebService.Authentication
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claimsList),
-                Expires = now.AddDays(30),
-                IssuedAt = now,
+                Expires = DateTime.UtcNow.AddDays(30),
+                IssuedAt = DateTime.UtcNow,
                 SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature)
-                //Audience = "http://app-trans-stg.hotelappz.com",
-                //Issuer = "http://api-trans-stg.hotelappz.com"
             };
 
             var token = SecurityTokenHandler.CreateJwtSecurityToken(tokenDescriptor);
             return new JwtSecurityTokenAdapter(SecurityTokenHandler.WriteToken(token));
-
-            //return new JwtSecurityTokenAdapter(_securityTokenHandler.WriteToken(token));
         }
 
         public ClaimsPrincipal ValidateToken(JwtSecurityTokenAdapter securityToken)
         {
             var validationParameters = new TokenValidationParameters
             {
-                IssuerSigningKey = new SymmetricSecurityKey(GetBytes(_jwtSigningKey)),
-                //ValidAudience = _jwtAllowedAudience,
-               // ValidIssuer = _jwtIssuer
+                IssuerSigningKey = new SymmetricSecurityKey(GetBytes(_jwtSigningKey))
             };
 
             SecurityToken validatedToken = null;

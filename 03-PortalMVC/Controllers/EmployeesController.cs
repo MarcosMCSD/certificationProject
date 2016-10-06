@@ -15,6 +15,7 @@ using _03_PortalMVC.Code;
 
 namespace _03_PortalMVC.Controllers
 {
+    [Authorize]
     public class EmployeesController : WebAppController
     {
 
