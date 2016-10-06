@@ -1,31 +1,39 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model _03_PortalMVC.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-8 p-t-2 text-md-center">
+
+        <img src="@Url.Content("~/Content/images/ikon_white_wob50.png")" />
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <section class="col-md-8 p-t-15">
+        <h2 class="text-md-center">Bienvenue sur l'espace GererMaBoite !</h2>
+        <div class="row">
+            <div class="mainLoginContainer col-md-24">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", @id = "login" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="p-y-2">
+                        <label for="email">VOTRE IDENTIFIANT COURRIEL</label>
+                        @Html.TextBoxFor(m => m.UserName, new { @type = "email", @class = "form-control", @placeholder = "Identifiant" })
+                    </div>
+                    <div class="p-y-2">
+                        <label for="password">MOT DE PASSE</label>
+                        @Html.PasswordFor(m => m.Password, new { @type = "password", @class = "form-control", @placeholder = "Mot de Passe" })
+                    </div>
+                   
+                    <div class="row">
+                        <span class="col-xs-11">
+                            @Html.ActionLink("Mot de passe oublié", "RecoverPassword", "Home", null, new { @class = "btn btn-link" })
+                        </span>
+                        <div class="col-xs-13">
+                            <button type="submit" class="btn btn-signup btn-block ">Se connecter</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
 </div>

@@ -11,16 +11,6 @@ namespace _02_WebService.Controllers
         [HttpPost]
         public IHttpActionResult Get(LoginRequest loginRequest)
         {
-            //remove this
-            if(loginRequest == null)
-            {
-                loginRequest = new LoginRequest()
-                {
-                    Username = "marcos",
-                    Password = "gil"
-                };
-            }
-            
             var token = AppUser.Authenticate(loginRequest);
             return Ok(token);
         }
