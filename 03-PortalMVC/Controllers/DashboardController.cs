@@ -11,10 +11,9 @@ using System.Web.Mvc;
 
 namespace _03_PortalMVC.Controllers
 {
-    [AllowAnonymous]
-    public class HomeController : WebAppController
+    [Authorize]
+    public class DashboardController : WebAppController
     {
-        
         public ActionResult Index()
         {
             return View();
