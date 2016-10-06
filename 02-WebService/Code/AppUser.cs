@@ -1,10 +1,12 @@
 ﻿using _01_DAL.Classes;
+using _01_DAL.DataModel;
+using _01_DAL.Dto;
+using _02_WebService.Authentication;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Security.Claims;
-using System.Web;
 
 namespace _02_WebService.Code
 {
@@ -58,5 +60,29 @@ namespace _02_WebService.Code
             return identity;
         }
 
+        public static JwtSecurityTokenAdapter Authenticate(LoginRequest loginRequest)
+        {
+            UserAccount authenticatingUser;
+            using(var context = new Context())
+            {
+                authenticatingUser = context.UserAccounts.Where(x => x.Username == loginRequest.Username && x.Password == loginRequest.Password).FirstOrDefault();
+            }
+            if (authenticatingUser == null)
+            {
+                return null;
+            }
+
+            var jwtSecurityTokenHandlerAdapter = new JwtSecurityTokenHandlerAdapter();
+            var retval = jwtSecurityTokenHandlerAdapter.CreateToken(authenticatingUser);
+
+
+            if (retval == null)
+            {
+               
+                throw new SecurityException("Bad authentication");
+            }
+
+            return retval;
+        }
     }
 }

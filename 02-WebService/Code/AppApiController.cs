@@ -22,6 +22,7 @@ namespace _02_WebService.Code
             get
             {
                 return new AppUser(this.User as ClaimsPrincipal);
+                //return new AppUser(HttpContext.Current.User as ClaimsPrincipal);
             }
         }
 

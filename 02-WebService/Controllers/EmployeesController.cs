@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace _02_WebService.Controllers
 {
+    [Authorize]
     public class EmployeesController : AppApiController
     {
         //Database access

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using _02_WebService.Authentication;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,17 @@ namespace _02_WebService
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            // Json contract resolver formatter
             JsonMediaTypeFormatter jsonFormatter = new JsonMediaTypeFormatter();
             jsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             jsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             jsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
-
             GlobalConfiguration.Configuration.Formatters.Clear();
             GlobalConfiguration.Configuration.Formatters.Add(jsonFormatter);
+
+            // JWT Token Authentication Handler
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new JwtAuthenticationMessageHandler());
         }
     }
 }

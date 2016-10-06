@@ -72,6 +72,7 @@
     <Compile Include="DataModel\Context.cs" />
     <Compile Include="DataModel\ContextInitializer.cs" />
     <Compile Include="Dto\EmployeeDetail.cs" />
+    <Compile Include="Dto\LoginRequest.cs" />
     <Compile Include="Dto\ProductDetail.cs" />
     <Compile Include="Migrations\201610052023020_initial.cs" />
     <Compile Include="Migrations\201610052023020_initial.Designer.cs">

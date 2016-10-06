@@ -11,10 +11,11 @@ using _01_DAL.Classes;
 using _01_DAL.DataModel;
 using System.Net.Http;
 using Newtonsoft.Json;
+using _03_PortalMVC.Code;
 
 namespace _03_PortalMVC.Controllers
 {
-    public class EmployeesController : Controller
+    public class EmployeesController : WebAppController
     {
 
         // GET: Employees
